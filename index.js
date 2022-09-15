@@ -1,5 +1,5 @@
 const main = document.querySelector("main");
-let exerciceArray = [
+const basicArray = [
   {
     pic: 0,
     min: 1,
@@ -41,6 +41,8 @@ let exerciceArray = [
     min: 1,
   },
 ];
+
+let exerciceArray = [];
 
 class Exercice {}
 
@@ -93,6 +95,11 @@ const utils = {
       });
     });
   },
+
+  reboot: function () {
+    exerciceArray = basicArray;
+    page.lobby();
+  },
 };
 
 const page = {
@@ -121,6 +128,7 @@ const page = {
     utils.handleEventMinutes();
     utils.handleEventArrow();
     utils.deleteItem();
+    reboot.addEventListener("click", () => utils.reboot());
   },
 
   routine: function () {
