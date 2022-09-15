@@ -62,6 +62,25 @@ const utils = {
       });
     });
   },
+  handleEventArrow: function () {
+    document.querySelectorAll(".arrow").forEach((arrow) => {
+      arrow.addEventListener("click", (e) => {
+        let position = 0;
+        exerciceArray.map((exo) => {
+          if (exo.pic == e.target.dataset.pic && position != 0) {
+            [exerciceArray[position], exerciceArray[position - 1]] = [
+              exerciceArray[position - 1],
+              exerciceArray[position],
+            ];
+            //relance l'affichage des Cards
+            page.lobby();
+          } else {
+            position++;
+          }
+        });
+      });
+    });
+  },
 };
 
 const page = {
@@ -88,6 +107,7 @@ const page = {
       "<button id='start'>Commencer<i class='far fa-play-circle'></i></button>"
     );
     utils.handleEventMinutes();
+    utils.handleEventArrow();
   },
 
   routine: function () {
