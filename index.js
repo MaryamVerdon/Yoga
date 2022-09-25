@@ -44,6 +44,15 @@ const basicArray = [
 
 let exerciceArray = [];
 
+//Stockage routine exercice
+(() => {
+  if (localStorage.exercices) {
+    exerciceArray = JSON.parse(localStorage.exercices);
+  } else {
+    exerciceArray = basicArray;
+  }
+})();
+
 class Exercice {}
 
 const utils = {
@@ -59,6 +68,7 @@ const utils = {
         exerciceArray.map((exo) => {
           if (exo.pic == e.target.id) {
             exo.min = parseInt(e.target.value);
+            this.store();
           }
         });
       });
@@ -76,6 +86,7 @@ const utils = {
             ];
             //relance l'affichage des Cards
             page.lobby();
+            this.store();
           } else {
             position++;
           }
@@ -92,6 +103,7 @@ const utils = {
         );
         exerciceArray = newArr;
         page.lobby();
+        this.store();
       });
     });
   },
@@ -99,6 +111,12 @@ const utils = {
   reboot: function () {
     exerciceArray = basicArray;
     page.lobby();
+    this.store();
+  },
+
+  //permet de stocker les choses
+  store: function () {
+    localStorage.exercices = JSON.stringify(exerciceArray);
   },
 };
 
